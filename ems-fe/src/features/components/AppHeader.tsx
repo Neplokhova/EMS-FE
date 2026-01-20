@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
-import { openCreateEventModal } from '@/lib/events-ui';
+import { openCreateEventModal } from '@/features/components/events/events-ui';
 
 export default function AppHeader() {
   const pathname = usePathname();

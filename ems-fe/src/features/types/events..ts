@@ -5,6 +5,7 @@ export type Event = {
   location: string;
   category: string;
   description: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
+

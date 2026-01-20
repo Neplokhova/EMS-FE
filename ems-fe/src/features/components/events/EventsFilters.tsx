@@ -4,15 +4,7 @@ import { Box, Button, MenuItem, Paper, TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import ReplayIcon from '@mui/icons-material/Replay';
-import type { Dayjs } from 'dayjs';
-
-export type FiltersState = {
-  category: string; // '' means all
-  startDate: Dayjs | null;
-  endDate: Dayjs | null;
-  sort: 'date' | 'createdAt' | 'title';
-  order: 'asc' | 'desc';
-};
+import type { FiltersState } from '@/features/types';
 
 export default function EventsFilters({
   value,

@@ -17,6 +17,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
+import { useIsClient } from '@/features/hooks/useIsClient';
 
 export type EventFormValues = {
   title: string;
@@ -49,18 +50,25 @@ export default function EventFormDialog({
     description: string;
   }) => void;
 }) {
+  const isClient = useIsClient();
+
+  // ✅ IMPORTANT: no dayjs() here (SSR-safe)
   const [values, setValues] = React.useState<EventFormValues>({
     title: '',
     category: '',
     location: '',
-    date: dayjs(),
+    date: null,
     description: '',
   });
 
-  const [errors, setErrors] = React.useState<Partial<Record<keyof EventFormValues, string>>>({});
+  const [errors, setErrors] = React.useState<
+    Partial<Record<keyof EventFormValues, string>>
+  >({});
 
+  // ✅ Set defaults only when dialog opens (client-side)
   React.useEffect(() => {
     if (!open) return;
+
     setErrors({});
     setValues({
       title: initialValues?.title ?? '',
@@ -112,12 +120,15 @@ export default function EventFormDialog({
     });
   };
 
-  const title = mode === 'create' ? 'Create event' : 'Edit event';
+  const dialogTitle = mode === 'create' ? 'Create event' : 'Edit event';
+
+  // ✅ Prevent SSR hydration mismatch from pickers
+  if (!isClient) return null;
 
   return (
     <Dialog open={open} onClose={submitting ? undefined : onClose} maxWidth="sm" fullWidth>
       <DialogTitle sx={{ pr: 6 }}>
-        {title}
+        {dialogTitle}
         <IconButton
           aria-label="close"
           onClick={onClose}

@@ -4,7 +4,7 @@ import { Card, CardContent, Typography, Box, IconButton, Chip, Divider } from '@
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import dayjs from 'dayjs';
-import type { Event } from '@/types/event';
+import type { Event } from '@/features/types/index';
 
 export default function EventCard({
   event,

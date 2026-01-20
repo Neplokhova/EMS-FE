@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import dayjs from 'dayjs';
-import type { Event } from '@/types/event';
+import type { Event } from '@/features/types/events.';
 
 export default function EventDetailsDialog({
   open,

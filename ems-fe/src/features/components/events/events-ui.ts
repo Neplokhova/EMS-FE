@@ -1,4 +1,4 @@
-import type { Event as EventModel } from '@/types/event';
+import type { Event as EventModel } from '@/features/types/events.';
 
 type OpenCreateDetail = { type: 'create' };
 type OpenEditDetail = { type: 'edit'; event: EventModel };
