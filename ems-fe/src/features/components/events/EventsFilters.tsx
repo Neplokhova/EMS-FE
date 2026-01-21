@@ -68,7 +68,7 @@ export default function EventsFilters({
             slotProps={{ textField: { sx: { minWidth: 180 } } }}
           />
 
-          {/* Reset (між фільтрами і сортуванням) */}
+          {/* Reset */}
           <Button
             variant="text"
             color="secondary"
@@ -79,7 +79,6 @@ export default function EventsFilters({
             Reset filters
           </Button>
 
-          {/* Spacer: відсуває сортування вправо */}
           <Box sx={{ flexGrow: 1 }} />
 
             
