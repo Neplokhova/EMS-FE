@@ -52,7 +52,6 @@ export default function EventFormDialog({
 }) {
   const isClient = useIsClient();
 
-  // ✅ IMPORTANT: no dayjs() here (SSR-safe)
   const [values, setValues] = React.useState<EventFormValues>({
     title: '',
     category: '',
@@ -65,7 +64,6 @@ export default function EventFormDialog({
     Partial<Record<keyof EventFormValues, string>>
   >({});
 
-  // ✅ Set defaults only when dialog opens (client-side)
   React.useEffect(() => {
     if (!open) return;
 
@@ -100,7 +98,6 @@ export default function EventFormDialog({
 
     if (!values.date || !values.date.isValid()) next.date = 'Valid date & time is required';
 
-    // ✅ required description
     if (!description) next.description = 'Description is required';
     if (description.length > 500) next.description = 'Max 500 characters';
 
@@ -121,8 +118,7 @@ export default function EventFormDialog({
   };
 
   const dialogTitle = mode === 'create' ? 'Create event' : 'Edit event';
-
-  // ✅ Prevent SSR hydration mismatch from pickers
+    
   if (!isClient) return null;
 
   return (
