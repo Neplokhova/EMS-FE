@@ -26,17 +26,12 @@ function toErrorMessage(e: unknown): string {
 }
 
 export function useEventsController() {
-  // --------------------
-  // Data
-  // --------------------
+
   const [events, setEvents] = useState<Event[]>([]);
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
 
-  // --------------------
-  // Filters
-  // --------------------
   const [filters, setFilters] = useState<FiltersState>({
     category: '',
     startDate: null,
@@ -47,14 +42,8 @@ export function useEventsController() {
 
   const categories = allCategories;
 
-  // --------------------
-  // Concurrency guard (avoid race conditions)
-  // --------------------
   const requestSeq = useRef(0);
 
-  // --------------------
-  // Load
-  // --------------------
   const load = useCallback(async (q: EventsQuery) => {
     const seq = ++requestSeq.current;
 
@@ -62,12 +51,10 @@ export function useEventsController() {
     setError('');
 
     try {
-      // 1) events (filtered)
       const data = await getEvents(q);
       if (requestSeq.current !== seq) return;
       setEvents(data);
 
-      // 2) categories (same query but without category filter)
       const qForCategories: EventsQuery = { ...q };
       delete qForCategories.category;
 
@@ -84,7 +71,6 @@ export function useEventsController() {
     }
   }, []);
 
-  // auto-fetch on filter change (debounce)
   useEffect(() => {
     const q = buildQueryFromFilters(filters);
 
@@ -105,9 +91,6 @@ export function useEventsController() {
     });
   }, []);
 
-  // --------------------
-  // Delete flow
-  // --------------------
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deletingEvent, setDeletingEvent] = useState<DeletingEvent | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -132,7 +115,6 @@ export function useEventsController() {
 
       await deleteEvent(deletingEvent.id);
 
-      // optimistic remove + refresh
       setEvents((prev) => prev.filter((e) => e.id !== deletingEvent.id));
       await load(buildQueryFromFilters(filters));
     } catch (e) {
@@ -144,9 +126,6 @@ export function useEventsController() {
     }
   }, [deletingEvent, filters, load]);
 
-  // --------------------
-  // Create/Edit form modal
-  // --------------------
   const [formOpen, setFormOpen] = useState(false);
   const [formMode, setFormMode] = useState<'create' | 'edit'>('create');
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
@@ -207,7 +186,6 @@ export function useEventsController() {
     [formMode, editingEvent, filters, load],
   );
 
-  // Subscribe to header menu actions (create/edit)
   useEffect(() => {
     const unsub = subscribeToEventModal((detail) => {
       if (detail.type === 'create') {
@@ -220,9 +198,6 @@ export function useEventsController() {
     return unsub;
   }, [openCreate, openEdit]);
 
-  // --------------------
-  // Details modal + recommendations
-  // --------------------
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
