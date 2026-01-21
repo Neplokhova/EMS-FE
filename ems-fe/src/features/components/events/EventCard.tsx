@@ -32,11 +32,10 @@ export default function EventCard({
         transition: 'box-shadow 0.2s ease',
         '&:hover': { boxShadow: 4 },
 
-        // ✅ щоб нічого не “різало”
         overflow: 'visible',
       }}
     >
-      {/* Actions (НЕ впливають на layout) */}
+      {/* Actions */}
       <Box
         className="event-actions"
         sx={{
@@ -48,7 +47,6 @@ export default function EventCard({
           gap: 0.5,
           zIndex: 1,
 
-          // desktop: показуємо по hover, mobile: завжди видно
           opacity: { xs: 1, sm: 0 },
           pointerEvents: { xs: 'auto', sm: 'none' },
           transform: { xs: 'none', sm: 'translateX(6px)' },
@@ -91,7 +89,6 @@ export default function EventCard({
           px: { xs: 2, sm: 3 },
           py: { xs: 2, sm: 2.5 },
 
-          // ✅ резерв під кнопки справа зверху, щоб текст не залазив під них
           pr: { xs: 7, sm: 7 },
 
           '&:last-child': { pb: { xs: 2, sm: 2.5 } },
