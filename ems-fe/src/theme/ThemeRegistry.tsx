@@ -12,7 +12,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {theme} from './theme';
 
 function createEmotionCache(): EmotionCache {
-  // key має бути стабільний, prepend:true зазвичай найкраще для MUI
   return createCache({ key: 'mui', prepend: true });
 }
 
@@ -24,14 +23,12 @@ export default function ThemeRegistry({ children }: ThemeRegistryProps) {
   const [{ cache, flush }] = React.useState(() => {
     const cache = createEmotionCache();
 
-    // Для сумісності з SSR інколи корисно
     cache.compat = true;
 
     let inserted: string[] = [];
 
     const prevInsert = cache.insert.bind(cache);
 
-    // ВАЖЛИВО: типізуємо сигнатуру без any і без ...args
     cache.insert = (
       selector: string,
       serialized: SerializedStyles,
