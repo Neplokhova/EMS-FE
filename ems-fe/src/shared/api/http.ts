@@ -6,10 +6,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
 export async function http<T>(path: string, init: RequestInit = {}): Promise<T> {
   const url = path.startsWith('http') ? path : `${BASE_URL}${path}`;
 
-  // ✅ merge headers safely
   const headers = new Headers(init.headers);
 
-  // ✅ only set Content-Type when we actually send a body
   const hasBody = init.body !== undefined && init.body !== null;
   if (hasBody && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
