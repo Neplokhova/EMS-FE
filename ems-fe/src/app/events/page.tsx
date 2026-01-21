@@ -61,7 +61,6 @@ export default function EventsPage() {
           )}
         </Box>
 
-        {/* ✅ shared error snackbar */}
         <ErrorSnackbar message={c.error} onClose={() => c.setError('')} />
 
         <ConfirmDeleteDialog
