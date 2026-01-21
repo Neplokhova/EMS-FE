@@ -29,9 +29,8 @@ export default function AppHeader() {
         zIndex: (theme) => theme.zIndex.appBar,
       }}
     >
-      {/* 👇 disableGutters — ключове */}
+     
       <Container maxWidth="lg" disableGutters>
-        {/* 👇 px тут, як у сторінках */}
         <Toolbar
           disableGutters
           sx={{
@@ -41,26 +40,27 @@ export default function AppHeader() {
         >
           {/* LEFT: Title */}
           <Typography
-  variant="h6"
-  sx={{
-    fontWeight: 600,
-    letterSpacing: '0.05em',
-    whiteSpace: 'nowrap',
-    mr: 3,
-  }}
->
-  {/* Desktop */}
-  <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
-    EVENT MANAGEMENT SYSTEM
-  </Box>
+            variant="h6"
+            sx={{
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              whiteSpace: 'nowrap',
+              mr: 3,
+            }}
+          >
+            
+          {/* Desktop */}
+          <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+            EVENT MANAGEMENT SYSTEM
+          </Box>
 
-  {/* Mobile */}
-  <Box component="span" sx={{ display: { xs: 'inline', sm: 'none' } }}>
-    EMS
-  </Box>
-</Typography>
+          {/* Mobile */}
+          <Box component="span" sx={{ display: { xs: 'inline', sm: 'none' } }}>
+              EMS
+          </Box>
+        </Typography>
 
-          {/* Spacer */}
+          {/* Spacer */}  
           <Box sx={{ flexGrow: 1 }} />
 
           {/* Tabs */}
@@ -81,7 +81,7 @@ export default function AppHeader() {
             <Tab label="Events" onClick={() => router.push('/events')} />
           </Tabs>
 
-          {/* RIGHT: Add Event */}
+          {/* Add Event */}
           <Button
             variant="contained"
             startIcon={<Add />}
