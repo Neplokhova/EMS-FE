@@ -2,7 +2,7 @@ import dayjs, { type Dayjs } from 'dayjs';
 import type { EventsQuery } from '@/features/types';
 
 export type EventsFiltersInput = {
-  category: string; // '' means all
+  category: string; 
   startDate: Dayjs | null;
   endDate: Dayjs | null;
   sort: EventsQuery['sort'];
